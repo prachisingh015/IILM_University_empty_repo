@@ -1,0 +1,55 @@
+public class kthLargestBST {
+    static class Node {
+        int data;
+        Node left;
+        Node right;
+
+        Node(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
+    }
+    static int count = 0;
+    static int result = -1;
+    static int kthLargest(Node root, int k) {
+        reverseInorder(root, k);
+        return result;
+    }
+    static void reverseInorder(Node root, int k) {
+        // Base case
+        if (root == null) {
+            return;
+        }
+        // Go to right subtree
+        reverseInorder(root.right, k);
+        // Process current node
+        count++;
+        if (count == k) {
+            result = root.data;
+            return;
+        }
+        // Go to left subtree
+        reverseInorder(root.left, k);
+    }
+    public static void main(String[] args) {
+
+        // Creating BST
+        Node root = new Node(8);
+
+        root.left = new Node(3);
+        root.right = new Node(10);
+
+        root.left.left = new Node(1);
+        root.left.right = new Node(6);
+
+        root.right.right = new Node(14);
+
+        // Find kth largest
+        int k = 3;
+
+        int answer = kthLargest(root, k);
+
+        System.out.println(k + "rd largest element = " + answer);
+    }
+}
