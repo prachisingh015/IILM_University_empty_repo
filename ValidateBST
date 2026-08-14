@@ -1,0 +1,56 @@
+public class validateBST {
+    static class Node{
+        int data;
+        Node left;
+        Node right;
+
+        Node(int data){
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
+    }
+    static boolean isValidBST(Node root){
+        return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+    static boolean validate(Node root, long min, long max){
+        //empty tree is a valid BST
+        if(root == null){
+            return true;
+        }
+        //current node must be inside the allowed range
+        if(root.data <= min || root.data >= max){
+            return false;
+        }
+        //check left subtree
+        if(!validate(root.right, root.data, max)){
+            return false;
+        }
+        //check right subtree
+        if(!validate(root.right, root.data, max)){
+            return false;
+        }
+        return true;
+
+    }
+    public static void main(String[] args) {
+
+        Node root = new Node(8);
+
+        root.left = new Node(3);
+        root.right = new Node(10);
+
+        root.left.left = new Node(1);
+        root.left.right = new Node(6);
+
+        root.right.right = new Node(14);
+
+        if (isValidBST(root)) {
+            System.out.println("Valid BST");
+        } else {
+            System.out.println("Invalid BST");
+        }
+    }
+}
+
+
