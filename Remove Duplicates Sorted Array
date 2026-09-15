@@ -1,0 +1,9 @@
+class Solution:
+    def removeDuplicates(self, arr):
+        hashmap = {}
+        for i in arr:
+            hashmap[i] = 0
+        result = []
+        for k in hashmap:
+            result.append(k)
+        return result
