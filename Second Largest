@@ -1,0 +1,13 @@
+class Solution:
+    def getSecondLargest(self, arr):
+        n = len(arr)
+        firstlargest = float("-inf")
+        secondlargest = float("-inf")
+        for i in range(0,n):
+            if arr[i] > firstlargest:
+                secondlargest = firstlargest
+                firstlargest = arr[i]
+            elif arr[i] > secondlargest and arr[i] != firstlargest:
+                secondlargest = arr[i]
+        return -1 if secondlargest == float("-inf") else secondlargest
+                
