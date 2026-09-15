@@ -1,0 +1,8 @@
+class Solution:
+	def arraySum(self, arr):
+   		# code here
+   		totalsum = 0
+   		for num in arr:
+   		    totalsum += num
+   		return totalsum
+   	    
