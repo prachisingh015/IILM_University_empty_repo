@@ -1,0 +1,49 @@
+class Solution:
+    def braceExpansionII(self, expression: str) -> list[str]:
+        self.i = 0
+        n = len(expression)
+
+        def parse_expr():
+            # Handle unions: a,b,c
+            res = parse_term()
+
+            while self.i < n and expression[self.i] == ',':
+                self.i += 1  # skip ','
+                res |= parse_term()
+
+            return res
+
+        def parse_term():
+            # Handle concatenation
+            res = {""}
+
+            while (
+                self.i < n
+                and expression[self.i] != '}'
+                and expression[self.i] != ','
+            ):
+                factor = parse_factor()
+
+                new_res = set()
+                for a in res:
+                    for b in factor:
+                        new_res.add(a + b)
+
+                res = new_res
+
+            return res
+
+        def parse_factor():
+            if expression[self.i].isalpha():
+                ch = expression[self.i]
+                self.i += 1
+                return {ch}
+
+            # expression[self.i] == '{'
+            self.i += 1  # skip '{'
+            res = parse_expr()
+            self.i += 1  # skip '}'
+            return res
+
+        ans = parse_expr()
+        return sorted(ans)
